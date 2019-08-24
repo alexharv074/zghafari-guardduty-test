@@ -22,15 +22,21 @@ This failed:
 ```text
 ▶ TF_VAR_ACCOUNT=xxxxxxxxxxxx terraform apply -auto-approve
 ...
-module.guardduty-member-module.aws_guardduty_detector.member: Creating...
+▶ terraform apply -auto-approve
 module.guardduty-master-module.aws_guardduty_detector.master: Creating...
-module.guardduty-member-module.aws_guardduty_detector.member: Creation complete after 2s [id=d2b661ddfd8947c067ffbf9d6f591b2a]
+module.guardduty-master-module.aws_guardduty_detector.master: Creation complete after 1s [id=5cb661e70fd7182c5507a21928418e82]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Creating...
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [10s elapsed]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [20s elapsed]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [30s elapsed]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [40s elapsed]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [50s elapsed]
+module.guardduty-master-module.aws_guardduty_member.prod_member[0]: Still creating... [1m0s elapsed]
 
-Error: Creating GuardDuty Detector failed: BadRequestException: The request is rejected because a detector already exists for the current account.
-        status code: 400, request id: f28199c5-c66f-11e9-9cd8-23b8435742c1
+Error: error waiting for GuardDuty Member "5cb661e70fd7182c5507a21928418e82:885164491973" invite: Error waiting for GuardDuty email verification: error reading GuardDuty Member "xxxxxxxxxxxx": member missing from response
 
-  on .terraform/modules/guardduty-master-module/mastermodule/main.tf line 1, in resource "aws_guardduty_detector" "master":
-   1: resource "aws_guardduty_detector" "master" {
+  on .terraform/modules/guardduty-master-module/mastermodule/main.tf line 5, in resource "aws_guardduty_member" "prod_member":
+   5: resource "aws_guardduty_member" "prod_member" {
 ```
 
-Seems my account already has a detector in it.
+Unsure how to verify the email.

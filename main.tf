@@ -6,7 +6,3 @@ module "guardduty-master-module" {
   member_account_emails  = ["alexharv074@gmail.com"]
   member_account_ids     = [var.account]
 }
-
-module "guardduty-member-module" {
-  source = "github.com/zghafari/guardduty/membermodule"
-}
